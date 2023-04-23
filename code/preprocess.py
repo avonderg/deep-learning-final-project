@@ -71,7 +71,7 @@ window_size = 60
 test_samples = 251
 future_time_steps = 20
 
-def main(window_size, test_samples, future_time_steps):
+def get_data(window_size, test_samples, future_time_steps):
     # Data Preparation
     data = load_data_from_csv('../data/BANKEX.csv')
     scaled_data, min_max = scaleit(data)
@@ -89,6 +89,6 @@ def main(window_size, test_samples, future_time_steps):
 
     return trainX, trainY, testX, testY, X, min_max
 
-if __name__ == "__main__":
-    # Add your parameters here
-    main(window_size, test_samples, future_time_steps)
+# if __name__ == "__main__":
+#     # Add your parameters here
+#     main(window_size, test_samples, future_time_steps)
