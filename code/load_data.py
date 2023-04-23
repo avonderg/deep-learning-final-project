@@ -34,8 +34,8 @@ def main():
     bank_list = get_bank_list()
     data = fetch_data(bank_list)
     save_data_to_csv(data, 'BANKEX.csv')
-    loaded_data = load_data_from_csv('BANKEX.csv')
-    print(loaded_data.shape)
+    # loaded_data = load_data_from_csv('BANKEX.csv')
+    # print(loaded_data.shape)
 
 if __name__ == "__main__":
     main()
