@@ -323,9 +323,6 @@ def main():
     '''
 
  
-    trainX, trainY, testX, testY, X, min_max = get_data(window_size, test_samples, future_time_steps)
-
-
     # Assuming the get_data function returns trainX, trainY, testX, testY, X, and min_max
     window_size = 50
     test_samples = 100
