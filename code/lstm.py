@@ -5,23 +5,14 @@ import torch.optim as optim
 
 class LSTM(nn.Module):
 
-    def __init__(self, embedding_dim, hidden_dim, vocab_size, tagset_size):
+    def __init__(self, input_dim, hidden_dim, output_window):
         super(LSTM, self).__init__()
-        self.hidden_dim = hidden_dim
+        self.lstm = nn.LSTM(input_dim, hidden_dim, batch_first=True)
+        self.fc = nn.Linear(hidden_dim, output_window)
 
-        self.word_embeddings = nn.Embedding(vocab_size, embedding_dim)
-
-        # The LSTM takes word embeddings as inputs, and outputs hidden states
-        # with dimensionality hidden_dim.
-        self.lstm = nn.LSTM(embedding_dim, hidden_dim)
-
-        # The linear layer that maps from hidden state space to tag space
-        self.hidden2tag = nn.Linear(hidden_dim, tagset_size)
-
-    def forward(self, sentence):
-        embeds = self.word_embeddings(sentence)
-        lstm_out, _ = self.lstm(embeds.view(len(sentence), 1, -1))
-        tag_space = self.hidden2tag(lstm_out.view(len(sentence), -1))
-        tag_scores = F.log_softmax(tag_space, dim=1)
-        return tag_scores
+    def forward(self, x):
+        lstm_out, _ = self.lstm(x)
+        last_lstm_out = lstm_out[:, -1, :]
+        output = self.fc(last_lstm_out)
+        return output
     
