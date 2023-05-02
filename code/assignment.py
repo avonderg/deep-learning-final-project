@@ -67,7 +67,8 @@ def main(use_LSTM=True):
     future_time_steps = 10
 
     input_dim = 1
-    hidden_dim = 200
+    hidden_dim = 128
+    output_window = 10
     dropout_prob = 0.2
     layer_dim = 2  # Number of GRU layers
     output_dim = 10  # Number of output time steps for your time series forecasting task
@@ -108,4 +109,4 @@ def main(use_LSTM=True):
 
 
 if __name__ == '__main__':
-    main(use_LSTM=True)  # Set this flag to False if you want to use the GRU model
+    main(use_LSTM=False)  # Set this flag to False if you want to use the GRU model
