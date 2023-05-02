@@ -17,7 +17,7 @@ class LSTM(nn.Module):
         )
 
         # Fully connected layer
-        self.fc = nn.Linear(hidden_dim, output_dim)
+        self.fc_final = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, x):
         # Initializing hidden state for first input with zeros
@@ -32,6 +32,6 @@ class LSTM(nn.Module):
         out = out[:, -1, :]
 
         # Convert the final state to our desired output shape (batch_size, output_dim)
-        out = self.fc(out)
+        out = self.fc_final(out)
 
         return out

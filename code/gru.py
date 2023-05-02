@@ -16,8 +16,9 @@ class GRU(nn.Module):
             input_dim, hidden_dim, layer_dim, batch_first=True, dropout=dropout_prob
         )
 
-        # Fully connected layer
-        self.fc = nn.Linear(hidden_dim, output_dim)
+        # Fully connected layers
+        self.fc1 = nn.Linear(hidden_dim, hidden_dim)
+        self.fc_final = nn.Linear(hidden_dim, output_dim)
 
     def forward(self, x):
         # Initializing hidden state for first input with zeros
@@ -30,7 +31,13 @@ class GRU(nn.Module):
         # so that it can fit into the fully connected layer
         out = out[:, -1, :]
 
-        # Convert the final state to our desired output shape (batch_size, output_dim)
-        out = self.fc(out)
+        # Pass the output through the first fully connected layer
+        out = self.fc1(out)
+        
+        # Apply ReLU activation function
+        out = F.relu(out)
+
+        # Pass the output of the first fully connected layer through the second fully connected layer
+        out = self.fc_final(out)
 
         return out

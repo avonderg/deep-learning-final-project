@@ -36,8 +36,8 @@ def train_model(model, input_data, target_data, learning_rate=0.001, num_epochs=
         output = model(input_data)
 
         # Reshape output and target tensors for loss calculation
-        output = output.view(-1, model.fc.out_features)  # (batch_size * sequence_length, tagset_size)
-        target = target_data.view(-1, model.fc.out_features)  # (batch_size * sequence_length, tagset_size)
+        output = output.view(-1, model.fc_final.out_features)  # (batch_size * sequence_length, tagset_size)
+        target = target_data.view(-1, model.fc_final.out_features)  # (batch_size * sequence_length, tagset_size)
 
         # Calculate the loss
         loss = loss_function(output, target)
@@ -67,8 +67,7 @@ def main(use_LSTM=True):
     future_time_steps = 10
 
     input_dim = 1
-    hidden_dim = 128
-    output_window = 10
+    hidden_dim = 200
     dropout_prob = 0.2
     layer_dim = 2  # Number of GRU layers
     output_dim = 10  # Number of output time steps for your time series forecasting task
