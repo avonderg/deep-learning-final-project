@@ -15,6 +15,7 @@ def data_preparation(w, scaled_data, N, f):
 
     trainX, trainY = X[0:N,0:w], X[0:N,w:w+f]
     testX, testY = X[N:Q-w,0:w], X[N:Q-w,w:w+f]
+    testY = np.reshape(testY, (testY.shape[0], testY.shape[1]))  # Add this line
     return trainX, trainY, testX, testY, X
 
 def baselinef(U,f):
