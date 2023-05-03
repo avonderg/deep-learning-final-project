@@ -72,9 +72,12 @@ window_size = 60
 test_samples = 251
 future_time_steps = 20
 
-def get_data(window_size, test_samples, future_time_steps):
+def get_data(window_size, test_samples, future_time_steps, use_activities_dataset=False):
     # Data Preparation
-    data = load_data_from_csv('../data/BANKEX.csv')
+    if use_activities_dataset: 
+        data = load_data_from_csv('../data/activities.csv') 
+    else:
+        data = load_data_from_csv('../data/BANKEX.csv')
     scaled_data, min_max = scaleit(data)
     scaled_data = data[0, :]
     scaled_data = np.reshape(scaled_data, (len(scaled_data), 1))
@@ -88,8 +91,5 @@ def get_data(window_size, test_samples, future_time_steps):
     trainX, trainY, testX, testY, X = data_preparation(window_size, scaled_data, num_samples, future_time_steps)
     print(trainX.shape, trainY.shape, testX.shape, testY.shape)
 
-    return trainX, trainY, testX, testY, X, min_max
+    return trainX, trainY, testX, testY, X, min_max, num_samples
 
-# if __name__ == "__main__":
-#     # Add your parameters here
-#     main(window_size, test_samples, future_time_steps)
